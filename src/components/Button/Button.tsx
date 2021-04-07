@@ -1,7 +1,7 @@
-import React, { ReactNode, ElementType } from 'react'
+import React, { ReactNode, ElementType, ButtonHTMLAttributes } from 'react'
 import classNames from 'classnames'
 
-const typeClassnames = {
+const colorClassnames = {
   primary: 'text-white bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300',
   secondary:
     'text-blue-600 bg-blue-100 hover:bg-blue-200 disabled:text-blue-300 disabled:bg-blue-100',
@@ -13,8 +13,8 @@ const sizeClassnames = {
   large: 'py-3 px-5',
 }
 
-interface ButtonProps {
-  type?: keyof typeof typeClassnames
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  color?: keyof typeof colorClassnames
   size?: keyof typeof sizeClassnames
   children: ReactNode
   icon?: ReactNode
@@ -25,20 +25,20 @@ interface ButtonProps {
 }
 
 const Button = React.forwardRef(
-  <Tag extends keyof JSX.IntrinsicElements>(
+  (
     {
       children,
       icon,
       rightIcon,
-      type = 'primary',
+      color = 'primary',
       size = 'medium',
       disabled,
       loading,
       as: Tag = 'button',
       className,
       ...props
-    }: ButtonProps & JSX.IntrinsicElements[Tag],
-    forwardedRef
+    }: ButtonProps,
+    forwardedRef,
   ) => {
     return (
       <Tag
@@ -47,7 +47,7 @@ const Button = React.forwardRef(
         disabled={disabled || loading}
         ref={forwardedRef}
         className={classNames(
-          typeClassnames[type],
+          colorClassnames[color],
           sizeClassnames[size],
           'rounded-md',
           'font-semibold',
@@ -59,7 +59,7 @@ const Button = React.forwardRef(
           'items-center',
           'justify-center',
           'cursor-pointer',
-          className
+          className,
         )}
       >
         <span
@@ -70,9 +70,7 @@ const Button = React.forwardRef(
           {icon && <span className="mr-1 fill-current w-5">{icon}</span>}
           {children}
           {rightIcon && (
-            <span className="ml-1 fill-current w-5 ${loadingClass}">
-              {rightIcon}
-            </span>
+            <span className="ml-1 fill-current w-5">{rightIcon}</span>
           )}
         </span>
         {loading && (
@@ -90,9 +88,9 @@ const Button = React.forwardRef(
         )}
       </Tag>
     )
-  }
+  },
 )
 
-Button.displayName = "Button"
+Button.displayName = 'Button'
 
 export default Button

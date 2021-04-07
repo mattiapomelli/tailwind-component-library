@@ -12,13 +12,13 @@ const Template = (args) => <Button {...args}>Get started</Button>
 export const Primary = Template.bind({})
 
 Primary.args = {
-  type: 'primary',
+  color: 'primary',
 }
 
 export const Secondary = Template.bind({})
 
 Secondary.args = {
-  type: 'secondary',
+  color: 'secondary',
 }
 
 const MyIcon = () => {
