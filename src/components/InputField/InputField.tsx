@@ -1,15 +1,10 @@
-import React, {
-  ReactNode,
-  SyntheticEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import React, { ReactNode, SyntheticEvent, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { InputHTMLAttributes } from 'react'
+import useInputValidation from '../../hooks/use-input-validation'
 
 const iconClass =
-  'absolute text-gray-500 fill-current w-5 top-1/2 transform -translate-y-1/2'
+  'absolute text-gray-500 text-lg fill-current top-1/2 transform -translate-y-1/2'
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: ReactNode
@@ -38,28 +33,17 @@ const InputField = ({
   ...props
 }: InputFieldProps) => {
   const [valueLength, setValueLength] = useState(0)
-  const [isValid, setIsValid] = useState<boolean>(undefined)
   const inputRef = useRef<HTMLInputElement>(null)
-  const timeoutId = useRef<number>(null)
-
-  useEffect(() => window.clearTimeout(timeoutId.current), [])
-
-  useEffect(() => {
-    if (onValidityChange && isValid !== undefined) {
-      onValidityChange(isValid)
-    }
-  }, [isValid, onValidityChange])
-
-  const checkValidity = () => {
-    return validate
-      ? validate(inputRef.current.value)
-      : inputRef.current.checkValidity()
-  }
+  const { isValid, onInput: baseOnInput, onBlur } = useInputValidation(
+    inputRef,
+    validate,
+    onValidityChange,
+  )
 
   const onInput = (
     event: SyntheticEvent<HTMLInputElement, InputEvent>,
   ): void => {
-    window.clearTimeout(timeoutId.current)
+    baseOnInput()
     const { value } = event.currentTarget
 
     if (onValueChange) {
@@ -67,22 +51,6 @@ const InputField = ({
     }
 
     setValueLength(value.length)
-
-    const valid = checkValidity()
-
-    if (valid) {
-      setIsValid(true)
-    } else {
-      timeoutId.current = window.setTimeout(() => {
-        setIsValid(checkValidity())
-      }, 1500)
-    }
-  }
-
-  const onBlur = () => {
-    if (inputRef.current) {
-      setIsValid(checkValidity())
-    }
   }
 
   return (
@@ -119,8 +87,7 @@ const InputField = ({
             'focus:border-blue-300',
             'w-full',
             {
-              'ring-1 ring-red-500 ring-opacity-60 focus:border-red-400':
-                isValid === false,
+              'ring-1 ring-red-500 ring-opacity-60 focus:border-red-400': !isValid,
             },
             className,
           )}
