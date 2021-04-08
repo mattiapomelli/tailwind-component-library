@@ -13,7 +13,7 @@ module.exports = {
      */
     // Find the only Storybook webpack rule that tests for css
     const cssRule = config.module.rules.find((rule) =>
-      'test.css'.match(rule.test)
+      'test.css'.match(rule.test),
     )
     // Which loader in this rule mentions the custom Storybook postcss-loader?
     const loaderIndex = cssRule.use.findIndex((loader) => {
@@ -25,6 +25,27 @@ module.exports = {
     })
     // Simple loader string form, removes the obsolete "options" key
     cssRule.use[loaderIndex] = 'postcss-loader'
+
+    // SVG
+    // Needed for SVG importing using svgr
+    // Default rule for images /\.(svg|ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/
+    const fileLoaderRule = config.module.rules.find(
+      (rule) => rule.test && rule.test.test('.svg'),
+    )
+    fileLoaderRule.exclude = /\.svg$/
+
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: {
+            svgo: false,
+            icon: true,
+          },
+        },
+      ],
+    })
 
     return {
       ...config,
