@@ -1,2 +1,1 @@
-import InputField from './InputField'
-export default InputField
+export { default } from './InputField'
