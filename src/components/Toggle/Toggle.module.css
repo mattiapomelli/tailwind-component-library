@@ -1,0 +1,12 @@
+.toggle:checked ~ .switch .knob {
+  @apply bg-blue-400;
+  transform: translateX(100%);
+}
+
+.toggle:checked ~ .switch .track {
+  @apply bg-blue-300;
+}
+
+.toggle:checked ~ .label {
+  @apply opacity-100;
+}
