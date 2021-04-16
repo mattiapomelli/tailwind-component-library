@@ -7,24 +7,26 @@ module.exports = {
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.
 
-    // Added to support PostCSS v8.X
-    /**
-     * CSS handling, specifically overriding postcss loader
-     */
-    // Find the only Storybook webpack rule that tests for css
-    const cssRule = config.module.rules.find((rule) =>
+    // CSS Modules and PostCSS for Tailwind CSS
+    const cssRuleIndex = config.module.rules.findIndex((rule) =>
       'test.css'.match(rule.test),
     )
-    // Which loader in this rule mentions the custom Storybook postcss-loader?
-    const loaderIndex = cssRule.use.findIndex((loader) => {
-      // Loaders can be strings or objects
-      const loaderString = typeof loader === 'string' ? loader : loader.loader
-      // Find the first mention of "postcss-loader", it may be in a string like:
-      // "@storybook/core/node_modules/postcss-loader"
-      return loaderString.includes('postcss-loader')
+
+    config.module.rules.splice(cssRuleIndex, 1)
+
+    config.module.rules.push({
+      test: /\.css$/i,
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+          },
+        },
+        'postcss-loader',
+      ],
     })
-    // Simple loader string form, removes the obsolete "options" key
-    cssRule.use[loaderIndex] = 'postcss-loader'
 
     // SVG
     // Needed for SVG importing using svgr
