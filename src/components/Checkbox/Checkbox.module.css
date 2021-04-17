@@ -1,0 +1,31 @@
+.checkbox:checked ~ .checkmark {
+  @apply bg-green-500 border-green-400;
+}
+
+.checkbox:checked ~ .checkmark .icon {
+  @apply opacity-100;
+}
+
+.container:hover .checkmark {
+  @apply bg-gray-100;
+}
+
+.container:hover .checkbox:checked ~ .checkmark {
+  @apply bg-green-400;
+}
+
+.container:hover .label {
+  @apply opacity-100;
+}
+
+.checkmark {
+  transition: background-color 0.1s linear
+}
+
+.icon {
+  transition: opacity 0.1s linear
+}
+
+.checkbox:checked ~ .label {
+  @apply opacity-100;
+}
