@@ -7,7 +7,7 @@ export default {
   component: Modal,
 } as Meta
 
-const Template = (args) => <Modal {...args} />
+const Template = (args) => <Modal {...args}>Ciao</Modal>
 
 export const Default = Template.bind({})
 
