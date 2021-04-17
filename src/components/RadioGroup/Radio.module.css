@@ -1,0 +1,23 @@
+.radio:checked ~ .checkmark .ring {
+  @apply border-blue-400 bg-blue-600 border-4;
+}
+
+.radio:checked ~ .checkmark .ring {
+  @apply border-blue-400 bg-blue-600 border-4;
+}
+
+.container:hover .checkmark {
+  @apply bg-gray-100;
+}
+
+.container:hover .radio:checked ~ .checkmark {
+  @apply bg-blue-100;
+}
+
+.container:hover .label {
+  @apply opacity-100;
+}
+
+.radio:checked ~ .label {
+  @apply opacity-100;
+}
