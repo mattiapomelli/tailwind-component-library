@@ -23,6 +23,7 @@ const Dropdown = ({
   icon,
   className,
   fullWidth,
+  ...props
 }: DropdownProps) => {
   const itemsRefs = useRef<HTMLElement[]>([])
   const [open, setOpen] = useState(false)
@@ -94,6 +95,7 @@ const Dropdown = ({
         { 'inline-block': !fullWidth },
         className,
       )}
+      {...props}
     >
       {label && (
         <label
