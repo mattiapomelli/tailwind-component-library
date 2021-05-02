@@ -10,6 +10,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
+    'plugin:jest/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -19,7 +20,13 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'react-hooks', 'jsx-a11y'],
+  plugins: [
+    'react',
+    '@typescript-eslint',
+    'react-hooks',
+    'jsx-a11y',
+    'testing-library',
+  ],
   ignorePatterns: ['next.config.js'],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 0,
