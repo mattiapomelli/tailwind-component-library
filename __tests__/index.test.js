@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react'
-import App from '../src/pages/index'
+import Home from '../src/pages/index'
 
-describe('App', () => {
-  it('renders without crashing', () => {
-    render(<App />)
+describe('Homepage', () => {
+  it('Should render the heading', () => {
+    render(<Home />)
     expect(screen.getByRole('heading', { name: 'Ciao' })).toBeInTheDocument()
   })
 })

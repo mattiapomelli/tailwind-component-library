@@ -9,7 +9,7 @@
     "export": "next export",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "dependencies": {
     "classnames": "^2.3.1",
@@ -43,8 +43,8 @@
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^4.1.2",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
-    "jest-dom": "^4.0.0",
     "postcss": "^8.2.4",
     "postcss-loader": "^4.1.0",
     "prettier": "^2.2.1",
