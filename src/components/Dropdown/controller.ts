@@ -3,7 +3,6 @@ export default class DropdownController {
   items: HTMLElement[]
 
   constructor(items: HTMLElement[]) {
-    console.log(items)
     this.focusedIndex = -1
     this.items = items
   }
@@ -28,5 +27,9 @@ export default class DropdownController {
 
   focuseSelectedItem() {
     this.items[this.focusedIndex].focus()
+  }
+
+  reset() {
+    this.focusedIndex = -1
   }
 }

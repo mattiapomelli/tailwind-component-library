@@ -47,6 +47,7 @@ WithLabel.args = {
   selectedIndex: 0,
   items: ['item 1', 'item 2', 'item 3'],
   label: 'Category',
+  id: 'dropdown',
 }
 
 export const FullWidth = Template.bind({})

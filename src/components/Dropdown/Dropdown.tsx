@@ -28,6 +28,7 @@ const Dropdown = ({
   const itemsRefs = useRef<HTMLElement[]>([])
   const [open, setOpen] = useState(false)
   const controller = useRef<DropdownController>(null)
+  const buttonRef = useRef<HTMLButtonElement>()
   const menuId = 'menu'
 
   useEffect(() => {
@@ -54,6 +55,8 @@ const Dropdown = ({
       window.addEventListener('scroll', close)
       window.addEventListener('resize', close)
       controller.current = new DropdownController(itemsRefs.current)
+    } else {
+      buttonRef.current.focus()
     }
 
     return () => {
@@ -113,6 +116,7 @@ const Dropdown = ({
         aria-controls={menuId}
         onClick={toggle}
         type="button"
+        ref={buttonRef}
         id={id}
       >
         {icon && <span className="mr-1 fill-current">{icon}</span>}
